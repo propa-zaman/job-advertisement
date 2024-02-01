@@ -39,7 +39,7 @@ const onSubmit = (values, onSubmitProps) => {
 const JobAdvertisement = () => {
     return (
         <div className='mt-14'>
-            <h2 className='text-center text-2xl mb-5 text-green-400'>Job Advertisement Form</h2>
+            <h2 className='text-center text-2xl mb-5 text-blue-400'>Job Advertisement Form</h2>
 
             <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit} >
                 {

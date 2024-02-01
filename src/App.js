@@ -1,13 +1,13 @@
 import logo from './logo.svg';
 import './App.css';
-import JobAd from './components/JobAd';
-import JobAdvertisement from './components/JobAdvertisement';
+import Advertisement from './components/Advertisement';
 
 function App() {
   return (
     <div className="App">
-      <JobAdvertisement></JobAdvertisement>
+      {/* <JobAdvertisement></JobAdvertisement> */}
       {/* <JobAd></JobAd> */}
+      <Advertisement></Advertisement>
     </div>
   );
 }
