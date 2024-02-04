@@ -12,16 +12,16 @@ const jobTypes = [
     { key: 'Non cadre', value: 'non-cadre' }
 ];
 
-const handleDateFormat = (date, setFieldValue, fieldName) => {
-    const finalDate = date ? format(date[0], 'yyyy-MM-dd') : "";
-    setFieldValue(fieldName, finalDate);
-};
 
-const JobAdFrom = () => {
-    const { setFieldValue, values, handleSubmit } = useFormikContext();
+const JobAdForm = () => {
+    const { setFieldValue, values } = useFormikContext();
 
+    const handleDateChange = (date) => {
+        const finalDate = date ? format(date[0], 'yyyy-MM-dd') : "";
+        setFieldValue('publishDateTime', finalDate);
+    };
     return (
-        <Form onSubmit={handleSubmit}>
+        <>
             <div>
                 <label htmlFor='jobType'>Select Job Type</label>
                 <Field as='select' name='jobType'>
@@ -65,7 +65,7 @@ const JobAdFrom = () => {
                             name='publishDateTime'
                             options={{ enableTime: false, dateFormat: 'Y-m-d' }}
                             value={values.publishDateTime}
-                            onChange={(date) => handleDateFormat(date, setFieldValue, 'publishDateTime')}
+                            onChange={(date) => handleDateChange(date, setFieldValue, 'publishDateTime')}
                             className='form-input'
                         />
                     )}
@@ -78,14 +78,8 @@ const JobAdFrom = () => {
                 <Field name='additionalInfo' component={QuillEditor} />
                 <ErrorMessage name='additionalInfo' component={TextError} />
             </div>
-
-            <button
-                className='mt-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded'
-                type='submit'>
-                Submit
-            </button>
-        </Form>
+        </>
     );
 };
 
-export default JobAdFrom;
+export default JobAdForm;

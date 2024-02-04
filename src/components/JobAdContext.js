@@ -1,7 +1,7 @@
 import React from 'react';
-import { useFormik, FormikProvider } from 'formik';
+import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import JobAdForm from './JobAdFrom';
+import JobAdForm from './JobAdForm';
 
 
 const initialValues = {
@@ -25,20 +25,32 @@ const validationSchema = Yup.object({
 });
 
 const JobAdContext = () => {
-    const formik = useFormik({
-        initialValues,
-        validationSchema,
-        onSubmit: (values, { setSubmitting }) => {
-            console.log('Form data', values);
-            setSubmitting(false);
-        }
-    });
     return (
         <div>
             <h2 className='text-center text-2xl mb-5 text-green-400'>Job Advertisement Form</h2>
-            <FormikProvider value={formik}>
-                <JobAdForm />
-            </FormikProvider>
+            <Formik
+                initialValues={initialValues}
+                validationSchema={validationSchema}
+                onSubmit={(values) => {
+                    console.log("Form Values", values);
+                }}
+            >
+                {({ handleSubmit, errors, dirty, isValid }) => {
+
+                    return (
+                        <Form onSubmit={handleSubmit}>
+                            <JobAdForm />
+                            <button
+                                className='mt-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded'
+                                type='submit'>
+                                Submit
+                            </button>
+                        </Form>
+                    )
+
+                }}
+
+            </Formik>
         </div>
     );
 };
