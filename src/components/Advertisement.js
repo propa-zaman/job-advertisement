@@ -5,12 +5,24 @@ import TextError from './TextError';
 import Flatpickr from 'react-flatpickr';
 import 'flatpickr/dist/themes/light.css';
 import QuillEditor from './QuillEditor';
+import { format } from 'date-fns';
 
 const jobTypes = [
     { key: 'Select Job Type', value: '' },
     { key: 'Cadre', value: 'cadre' },
     { key: 'Non cadre', value: 'non-cadre' }
 ];
+
+const handleDateFormate = (date, setFieldValue, publishDateTime) => {
+
+    console.log("Date", date[0])
+
+    const finalDate = date ? format(date[0], 'yyyy-MM-dd') : "";
+
+    setFieldValue(publishDateTime, finalDate);
+
+
+}
 
 const initialValues = {
     jobType: '',
@@ -76,19 +88,25 @@ const Advertisement = () => {
 
                             <label htmlFor='publishDateTime'>Publish Date and Time</label>
                             <Field name='publishDateTime'>
-                                {({ field, form }) => (
-                                    <Flatpickr
+                                {({ field, form }) => {
+
+                                    const setFieldValue = form.setFieldValue;
+
+                                    return (
+                                        <Flatpickr
                                         id='publishDateTime'
                                         name='publishDateTime'
                                         options={{
-                                            enableTime: true,
-                                            dateFormat: 'd-m-Y H:i',
+                                            enableTime: false,
+                                            dateFormat: 'Y-m-d',
                                         }}
                                         value={form.values.publishDateTime}
-                                        onChange={date => form.setFieldValue('publishDateTime', date[0])}
+                                        onChange={(date)=> handleDateFormate(date,setFieldValue,'publishDateTime')}
+                                        
                                         className='form-input'
                                     />
-                                )}
+                                    )
+                                }}
                             </Field>
                             <ErrorMessage name='publishDateTime' component={TextError} ></ErrorMessage>
 
